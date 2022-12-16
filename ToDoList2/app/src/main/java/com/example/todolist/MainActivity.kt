@@ -12,6 +12,7 @@ class MainActivity : AppCompatActivity(), TaskItemClickListener
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var taskViewModel: TaskViewModel
+    private var notClicked = true
 
     override fun onCreate(savedInstanceState: Bundle?)
     {
@@ -23,7 +24,6 @@ class MainActivity : AppCompatActivity(), TaskItemClickListener
             NewTaskSheet(null).show(supportFragmentManager, "newTaskTag")
         }
         setRecyclerView()
-
     }
 
     private fun setRecyclerView()
