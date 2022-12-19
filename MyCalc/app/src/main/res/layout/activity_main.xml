@@ -17,6 +17,7 @@
         android:padding="20dp">
 
         <TextView
+
             android:id="@+id/showScreen"
             android:layout_width="327dp"
             android:layout_height="113dp"
