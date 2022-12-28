@@ -1,6 +1,7 @@
 package com.example.retrofit.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
@@ -8,10 +9,12 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.size.Scale
+import com.example.retrofit.DetailsMovieActivity
 import com.example.retrofit.R
 import com.example.retrofit.databinding.ItemMoviesBinding
+
 import com.example.retrofit.response.MovieListResponse
-import com.example.retrofit.utils.Constants.POSTER_BASEURL
+import com.example.retrofit.utils.Constants.POSTER_BASE_URL
 
 class MoviesAdapter : RecyclerView.Adapter<MoviesAdapter.ViewHolder>() {
 
@@ -34,19 +37,27 @@ class MoviesAdapter : RecyclerView.Adapter<MoviesAdapter.ViewHolder>() {
         return differ.currentList.size
     }
 
+    override fun getItemViewType(position: Int): Int {
+        return position
+    }
+
     inner class ViewHolder : RecyclerView.ViewHolder(binding.root){
         fun bind(item : MovieListResponse.Result){
             binding.apply {
                 movieName.text = item.title
                 movieRate.text = item.vote_average.toString()
-                val moviePosterURL = POSTER_BASEURL + item.poster_path
+                val moviePosterURL = POSTER_BASE_URL + item.poster_path
                 moviePoster.load(moviePosterURL){
                     crossfade(true)
                     placeholder(R.drawable.poster_placeholder)
                     scale(Scale.FILL)
                 }
                 movieLang.text = item.original_language
-                movieRelease.text = item.release_date
+                root.setOnClickListener{
+                    val intent = Intent(context, DetailsMovieActivity::class.java)
+                    intent.putExtra("id", item.id)
+                    context.startActivity(intent)
+                }
             }
         }
 

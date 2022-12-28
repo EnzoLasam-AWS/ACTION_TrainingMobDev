@@ -41,11 +41,12 @@ class MainActivity : AppCompatActivity() {
                     when(response.code()){
                         //Successful response
                         in 200..299->{
-                            response.body().let { itBody ->
-                                itBody?.results.let { itData ->
-                                    if (itData!!.isNotEmpty()){
+                            Log.d("Response Code", " success messages : ${response.code()}")
+                            response.body()?.let { itBody ->
+                                itBody.results.let { itData ->
+                                    if (itData.isNotEmpty()){
                                         movieAdapter.differ.submitList(itData)
-                                        rvMovie.apply { 
+                                        rvMovie.apply {
                                             layoutManager=LinearLayoutManager(this@MainActivity)
                                             adapter=movieAdapter
                                         }
@@ -70,7 +71,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 override fun onFailure(call: Call<MovieListResponse>, t: Throwable) {
-                    binding.prgBarMovie.visibility = View.GONE
+                    prgBarMovie.visibility = View.GONE
                     Log.e("onFailure", "Err : ${t.message}")
                 }
 
