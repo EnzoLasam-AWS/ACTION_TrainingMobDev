@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
         binding.apply {
             prgBarMovie.visibility = View.VISIBLE
 
-            val callMovieApi = api.getPopularMovie(1)
+            var callMovieApi = api.getPopularMovie(1)
             callMovieApi.enqueue(object : Callback<MovieListResponse>{
                 override fun onResponse(
                     call: Call<MovieListResponse>,

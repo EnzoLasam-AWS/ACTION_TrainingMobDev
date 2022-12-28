@@ -46,7 +46,7 @@ class MoviesAdapter : RecyclerView.Adapter<MoviesAdapter.ViewHolder>() {
             binding.apply {
                 movieName.text = item.title
                 movieRate.text = item.vote_average.toString()
-                val moviePosterURL = POSTER_BASE_URL + item.poster_path
+                val moviePosterURL = POSTER_BASE_URL + item?.poster_path
                 moviePoster.load(moviePosterURL){
                     crossfade(true)
                     placeholder(R.drawable.poster_placeholder)
@@ -55,7 +55,7 @@ class MoviesAdapter : RecyclerView.Adapter<MoviesAdapter.ViewHolder>() {
                 movieLang.text = item.original_language
                 root.setOnClickListener{
                     val intent = Intent(context, DetailsMovieActivity::class.java)
-                    intent.putExtra("id", item.id)
+                    intent.putExtra("id", item?.id)
                     context.startActivity(intent)
                 }
             }
